@@ -23,10 +23,10 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore Solution/Solution.sln # Especifica la ruta correcta a la solución
 
       - name: Run build
-        run: dotnet build --configuration Release
+        run: dotnet build Solution/Solution.sln --configuration Release # Especifica la ruta correcta a la solución
 
   test:
     name: Test
@@ -44,13 +44,13 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Install Dependencies
-        run: dotnet restore
+        run: dotnet restore Solution/Solution.sln # Especifica la ruta correcta a la solución
 
       - name: Run Build
-        run: dotnet build --configuration Release
+        run: dotnet build Solution/Solution.sln --configuration Release # Especifica la ruta correcta a la solución
 
       - name: Generate Test Results
-        run: dotnet test --configuration Release --no-build --verbosity normal --logger "trx;LogFilePrefix=test-results" --results-directory ./coverage
+        run: dotnet test Solution/Solution.sln --configuration Release --no-build --verbosity normal --logger "trx;LogFilePrefix=test-results" --results-directory ./coverage
 
       - name: Uploaded Test Results
         uses: dorny/test-reporter@v1
@@ -68,7 +68,7 @@ jobs:
           only-summary: false
 
       - name: Generate Test Coverage
-        run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+        run: dotnet test Solution/Solution.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
         
       - name: Code Coverage Report
         uses: irongut/CodeCoverageSummary@v1.3.0
